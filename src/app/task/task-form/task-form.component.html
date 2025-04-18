@@ -1,0 +1,46 @@
+<!-- src/app/task/task-form/task-form.component.html -->
+<form [formGroup]="taskForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="title">Title</label>
+      <input id="title" type="text" formControlName="title">
+      <div *ngIf="taskForm.get('title')?.invalid && taskForm.get('title')?.touched">
+        <small class="text-danger">Title is required</small>
+      </div>
+    </div>
+  
+    <div class="form-group">
+      <label for="description">Description</label>
+      <textarea id="description" formControlName="description"></textarea>
+      <div *ngIf="taskForm.get('description')?.invalid && taskForm.get('description')?.touched">
+        <small class="text-danger">Description is required</small>
+      </div>
+    </div>
+  
+    <div class="form-group">
+      <label for="status">Status</label>
+      <select id="status" formControlName="status">
+        <option value="pending">Pending</option>
+        <option value="in-progress">In Progress</option>
+        <option value="completed">Completed</option>
+      </select>
+    </div>
+  
+    <div class="form-group">
+      <label for="dueDate">Due Date</label>
+      <input id="dueDate" type="date" formControlName="dueDate">
+      <div *ngIf="taskForm.get('dueDate')?.invalid && taskForm.get('dueDate')?.touched">
+        <small class="text-danger">Due date is required</small>
+      </div>
+    </div>
+  
+    <!-- <div class="form-group">
+      <label for="userId">Assigned User</label>
+      <select id="userId" formControlName="userId">
+        <option *ngFor="let user of users" [value]="user.id">{{ user.email }}</option>
+      </select>
+    </div>-->
+  
+    <button type="submit" [disabled]="taskForm.invalid">
+      {{ isEditMode ? 'Update' : 'Create' }} Task
+    </button>
+  </form>

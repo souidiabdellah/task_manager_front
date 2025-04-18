@@ -1,0 +1,29 @@
+<!-- src/app/task/task-list/task-list.component.html -->
+<div class="task-controls">
+    <select [(ngModel)]="statusFilter" (change)="onStatusChange(statusFilter)">
+      <option value="all">All Tasks</option>
+      <option value="pending">Pending</option>
+      <option value="in-progress">In Progress</option>
+      <option value="completed">Completed</option>
+    </select>
+    <a routerLink="/tasks/new" class="btn btn-primary">New Task</a>
+  </div>
+  
+  <div class="task-list">
+    <div *ngFor="let task of filteredTasks" class="task-card">
+      <h3>
+        <a [routerLink]="['/tasks', task.id]">{{ task.title }}</a>
+      </h3>
+      <p>{{ task.description }}</p>
+      <div class="task-meta">
+        <span class="status-badge" [class]="task.status">
+          {{ task.status | taskStatus }}
+        </span>
+        <span>Due: {{ task.dueDate | date }}</span>
+      </div>
+      <div class="task-actions">
+        <a [routerLink]="['/tasks', task.id, 'edit']" class="btn btn-sm">Edit</a>
+        <button (click)="deleteTask(task.id!)" class="btn btn-sm btn-danger">Delete</button>
+      </div>
+    </div>
+  </div>
