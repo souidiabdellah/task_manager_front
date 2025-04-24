@@ -6,6 +6,7 @@ import { Task } from '../../models/task';
 
 @Component({
   selector: 'app-task-detail',
+  standalone: true,
   templateUrl: './task-detail.component.html',
   styleUrls: ['./task-detail.component.css']
 })

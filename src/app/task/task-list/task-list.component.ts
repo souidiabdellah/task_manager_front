@@ -10,6 +10,7 @@ import { CommonModule } from '@angular/common';
 
 @Component({
   imports:[FormsModule,RouterModule,TaskStatusPipe,CommonModule],
+  standalone: true,
   selector: 'app-task-list',
   templateUrl: './task-list.component.html',
   styleUrls: ['./task-list.component.css']
