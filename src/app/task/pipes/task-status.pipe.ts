@@ -9,7 +9,7 @@ export class TaskStatusPipe implements PipeTransform {
     const statusMap: { [key: string]: string } = {
       'pending': 'Pending',
       'in-progress': 'In Progress',
-      'completed': 'Completed'
+      'done': 'Done'
     };
     return statusMap[value] || value;
   }

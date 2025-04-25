@@ -33,7 +33,7 @@ export class TaskDetailComponent implements OnInit {
     }
   }
 
-  changeStatus(newStatus: 'pending' | 'in-progress' | 'completed'): void {
+  changeStatus(newStatus: 'pending' | 'in_progress' | 'done'): void {
     if (this.task) {
       this.taskService.updateTask(this.task.id!, { status: newStatus })
         .subscribe(updatedTask => {

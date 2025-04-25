@@ -1,7 +1,7 @@
 // src/app/task/task-form/task-form.component.ts
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { TaskService } from '../../services/task.service';
 import { Task } from '../../models/task';
 import { FormsModule } from '@angular/forms';
@@ -10,7 +10,7 @@ import { CommonModule } from '@angular/common';
 
 
 @Component({
-  imports:[FormsModule,ReactiveFormsModule,CommonModule],
+  imports:[FormsModule,ReactiveFormsModule,CommonModule,RouterModule],
   standalone: true,
   selector: 'app-task-form',
   templateUrl: './task-form.component.html',
@@ -32,7 +32,7 @@ export class TaskFormComponent implements OnInit {
       description: ['', Validators.required],
       status: ['pending', Validators.required],
       dueDate: ['', Validators.required],
-      userId: [null, Validators.required]
+      userId: ['']
     });
   }
 
@@ -63,7 +63,7 @@ export class TaskFormComponent implements OnInit {
   onSubmit(): void {
     if (this.taskForm.valid) {
       const taskData = this.taskForm.value;
-      taskData.dueDate = new Date(taskData.dueDate);
+      taskData.dueDate = new Date(taskData.dueDate).toISOString().substring(0, 10);
 
       const operation = this.isEditMode && this.taskId
         ? this.taskService.updateTask(this.taskId, taskData)

@@ -1,29 +1,47 @@
-<!-- src/app/task/task-list/task-list.component.html -->
-<div class="task-controls">
-    <select [(ngModel)]="statusFilter" (change)="onStatusChange(statusFilter)">
-      <option value="all">All Tasks</option>
-      <option value="pending">Pending</option>
-      <option value="in-progress">In Progress</option>
-      <option value="completed">Completed</option>
-    </select>
-    <a routerLink="/tasks/new" class="btn btn-primary">New Task</a>
+<div class="container mt-4">
+  <!-- Filter controls -->
+  <div class="row mb-4">
+    <div class="col-md-6">
+      <select class="form-select" [(ngModel)]="statusFilter" (change)="onStatusChange(statusFilter)">
+        <option value="all">All Tasks</option>
+        <option value="pending">Pending</option>
+        <option value="in_progress">In Progress</option>
+        <option value="done">Done</option>
+      </select>
+    </div>
+    <div class="col-md-6 text-md-end">
+      <a routerLink="/tasks/new" class="btn btn-primary">New Task</a>
+    </div>
   </div>
-  
-  <div class="task-list">
-    <div *ngFor="let task of filteredTasks" class="task-card">
-      <h3>
-        <a [routerLink]="['/tasks', task.id]">{{ task.title }}</a>
-      </h3>
-      <p>{{ task.description }}</p>
-      <div class="task-meta">
-        <span class="status-badge" [class]="task.status">
-          {{ task.status | taskStatus }}
-        </span>
-        <span>Due: {{ task.dueDate | date }}</span>
-      </div>
-      <div class="task-actions">
-        <a [routerLink]="['/tasks', task.id, 'edit']" class="btn btn-sm">Edit</a>
-        <button (click)="deleteTask(task.id!)" class="btn btn-sm btn-danger">Delete</button>
+
+  <!-- Task list -->
+  <div class="row g-4">
+    <div *ngFor="let task of filteredTasks" class="col-12 col-md-6 col-lg-4">
+      <div class="card h-100 shadow-sm">
+        <div class="card-body">
+          <h5 class="card-title">
+            <a [routerLink]="['/tasks', task.id]" class="text-decoration-none">{{ task.title }}</a>
+          </h5>
+          <p class="card-text text-muted">{{ task.description }}</p>
+          
+          <div class="d-flex justify-content-between align-items-center mb-2">
+            <span class="badge" 
+                  [class.bg-warning]="task.status === 'pending'"
+                  [class.bg-info]="task.status === 'in_progress'"
+                  [class.bg-success]="task.status === 'done'">
+              {{ task.status | taskStatus }}
+            </span>
+            <small class="text-muted">Due: {{ task.dueDate | date }}</small>
+          </div>
+        </div>
+        
+        <div class="card-footer bg-transparent">
+          <div class="d-flex justify-content-between">
+            <a [routerLink]="['/tasks', task.id, 'edit']" class="btn btn-sm btn-outline-primary">Edit</a>
+            <button (click)="deleteTask(task.id!)" class="btn btn-sm btn-outline-danger">Delete</button>
+          </div>
+        </div>
       </div>
     </div>
   </div>
+</div>
